@@ -9,12 +9,18 @@
 #ifndef SYView_h
 #define SYView_h
 
+#include "SYTemplate.hpp"
+#include "SYConstant.h"
+#include "SYUntil.hpp"
 
 class SYView {
+protected:
+    SYTemplate * m_template;
     
 public:
-    
-    
+    SYView(){
+        m_template = SYTemplate::GetInstance();
+    }
     
 };
 

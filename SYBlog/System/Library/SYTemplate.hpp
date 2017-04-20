@@ -37,12 +37,12 @@ public:
     void Init(std::map<std::string, std::string> & tempMap);
     bool BuiltHtmlByTemplateKey(const char * pKey,TEMPLATE & temp);
     const std::string GetTemplate(const char * pKey);
+    void LoadTemplatePage(std::string key,std::string value);
     
 private:
     TEMPLATE & GetFile(std::string fileDir,std::string fileName,TEMPLATE & temp,TEMPLATECB aCall = NULL);
     
     void LoadTemplatePage(std::map<std::string, std::string> & tempMap);
-    
     void ReplaceTemplatePage(std::string & Html);
     void ReplaceSiteConfig(std::string & Html);
     

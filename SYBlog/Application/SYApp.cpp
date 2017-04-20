@@ -19,6 +19,7 @@
 #include "SYMysqlPool.hpp"
 
 #include "IndexController.hpp"
+#include "CategoryController.hpp"
 
 SYApp::SYApp(){
     memset(m_szDir, 0, sizeof(m_szDir));
@@ -35,10 +36,10 @@ bool SYApp::Init(){
     
     m_startTime = uint32_t(time(NULL));
     
-    std::map<std::string, std::string> templateMap;
-    templateMap[K_DEFAULT] = V_DEFAULT;
+    //std::map<std::string, std::string> templateMap;
+    //templateMap[K_DEFAULT] = V_DEFAULT;
+    //SYTemplate::GetInstance()->Init(templateMap);
     
-    SYTemplate::GetInstance()->Init(templateMap);
     strncpy(m_szDir, SYConfig::GetInstance()->m_rootFullPath.c_str(), SYConfig::GetInstance()->m_rootFullPath.length());
     
     return true;
@@ -181,7 +182,9 @@ void SYApp::SetRouteTable(evhttp * http){
     
     // TODO ...
     SYController * index = new IndexController;
+    SYController * category = new CategoryController;
     m_controllers.push_back(index);
+    m_controllers.push_back(category);
     
     std::list<SYController *>::iterator iter;
     for (iter = m_controllers.begin(); iter != m_controllers.end(); iter++) {

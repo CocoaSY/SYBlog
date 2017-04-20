@@ -11,9 +11,11 @@
 
 #include "SYMysqlPool.hpp"
 
+#include "SYConstant.h"
+
 class SYModel {
 
-public:
+protected:
     SYMysqlPool * m_mysqlPool;
     
 public:

@@ -12,9 +12,9 @@
 #include <stdio.h>
 #include <event.h>
 
-#include "SYController.h"
+#include "BaseController.hpp"
 
-class IndexController : public SYController {
+class IndexController : public BaseController {
     
 public:
     IndexController();

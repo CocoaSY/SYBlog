@@ -11,8 +11,16 @@
 #include <event2/http.h>
 
 #include "SYApp.hpp"
-#include "SYTemplate.hpp"
 #include "SYLog.hpp"
+
+#include "ClassifyModel.hpp"
+#include "NavView.hpp"
+#include "PostsModel.hpp"
+#include "ArticleMultiView.hpp"
+#include "DefaultView.hpp"
+#include "SiteConfigModel.hpp"
+
+using namespace std;
 
 IndexController::IndexController(){
     
@@ -36,10 +44,30 @@ void IndexController::IndexRequestCallback(struct evhttp_request *req, void *arg
 }
 
 void IndexController::RequestPage(struct evhttp_request *req, const char *PageId){
+        
+    // 加载导航栏 HTML
+    string navHtml = HeaderHtml();
+    
+    // 加载首页列表模板
+    PostsModel postsModel;
+    ArticleMultiView articleMultiView;
+    
+    ARTICLE_MULTI_LIST articleList= postsModel.GetArticleMultiList(0);
+    string articleMultiHtml = "";
+    ARTICLE_MULTI_LIST::iterator iter2;
+    for (iter2 = articleList.begin(); iter2 != articleList.end(); iter2++) {
+        ARTICLE_MULTI_ITEM item = (*iter2);
+        articleMultiView.SetArticleMultiItem(item);
+        articleMultiHtml += articleMultiView.GetArticleMultiHtml().value;
+    }
     
     // 加载默认页面模板
-    TEMPLATE HtmlTemplate;
-    SYTemplate::GetInstance()->BuiltHtmlByTemplateKey(K_DEFAULT, HtmlTemplate);
+    DefaultView defaultView;
+    SiteConfigModel siteConfig;
+    defaultView.SetNavTemplate(navHtml);
+    defaultView.SetArticleMultiTemplate(articleMultiHtml);
+    defaultView.SetSiteConfig(siteConfig.GetSiteConfig());
+    TEMPLATE HtmlTemplate = defaultView.GetDefaultHtml();
     
     // 发送页面到浏览器
     SYApp::SendHttpResponse(req, HtmlTemplate.value);

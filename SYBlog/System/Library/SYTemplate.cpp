@@ -85,17 +85,19 @@ TEMPLATE & SYTemplate::GetFile(std::string fileDir,std::string fileName,TEMPLATE
     return temp;
 }
 
-void SYTemplate::LoadTemplatePage(std::map<std::string, std::string> & tempMap){
-    
+void SYTemplate::LoadTemplatePage(std::string key,std::string value){
     TEMPLATE aTemp;
     string dir = SYConfig::GetInstance()->m_rootFullPath + "/themes/" + SYConfig::GetInstance()->m_appConfig.Theme + "/page/";
     string adminDir = SYConfig::GetInstance()->m_rootFullPath + "/admin/";
-    
+    m_templateMap[key] = GetFile(dir, value, aTemp);
+}
+
+void SYTemplate::LoadTemplatePage(std::map<std::string, std::string> & tempMap){
+    if(m_templateMap.size() == 0) return;
     map<string, string>::iterator iter;
     for (iter = tempMap.begin(); iter != tempMap.end(); iter++) {
-        m_templateMap[iter->first] = GetFile(dir, iter->second, aTemp);
+        LoadTemplatePage(iter->first, iter->second);
     }
-    
 }
 
 void SYTemplate::ReplaceTemplatePage(std::string & Html){
