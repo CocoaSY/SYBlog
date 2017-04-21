@@ -47,6 +47,7 @@ public:
     ARTICLE_MULTI_LIST GetArticleMultiList(uint32_t page);
     ARTICLE_MULTI_LIST GetArticleMultiList(uint32_t cate,uint32_t page);
     
+    POST GetArticle(uint32_t postID);
     
 };
 

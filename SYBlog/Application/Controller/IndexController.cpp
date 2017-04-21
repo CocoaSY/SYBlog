@@ -22,14 +22,6 @@
 
 using namespace std;
 
-IndexController::IndexController(){
-    
-}
-
-IndexController::~IndexController(){
-    
-}
-
 void IndexController::Rewrite(std::string link){
     
 }

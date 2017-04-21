@@ -20,6 +20,7 @@
 
 #include "IndexController.hpp"
 #include "CategoryController.hpp"
+#include "PostController.hpp"
 
 SYApp::SYApp(){
     memset(m_szDir, 0, sizeof(m_szDir));
@@ -183,8 +184,10 @@ void SYApp::SetRouteTable(evhttp * http){
     // TODO ...
     SYController * index = new IndexController;
     SYController * category = new CategoryController;
+    SYController * post = new PostController;
     m_controllers.push_back(index);
     m_controllers.push_back(category);
+    m_controllers.push_back(post);
     
     std::list<SYController *>::iterator iter;
     for (iter = m_controllers.begin(); iter != m_controllers.end(); iter++) {

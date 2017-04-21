@@ -77,3 +77,39 @@ ARTICLE_MULTI_LIST PostsModel::GetArticleMultiList(uint32_t cate,uint32_t page){
     
     return list;
 }
+
+POST PostsModel::GetArticle(uint32_t postID){
+    
+    POST aPost;
+    
+    char szSQL[SIZE_1024] = {0};
+    snprintf(szSQL, SIZE_1024, "SELECT ID,post_author,post_date,post_content,post_brief,post_title, \
+                                post_status,post_classify,comment_status,post_modified,post_url,comment_count \
+                                FROM sy_posts \
+                                WHERE ID=%d",postID);
+    
+    MYSQL_RES * pRes = m_mysqlPool->Select(szSQL);
+    if (pRes != NULL) {
+        MYSQL_ROW row;
+        while ( (row = mysql_fetch_row(pRes)) ) {
+            
+            aPost.ID = row[0];
+            aPost.author = row[1];
+            aPost.date = row[2];
+            aPost.content = row[3];
+            aPost.brief = row[4];
+            aPost.title = row[5];
+            aPost.status = row[6];
+            aPost.classify = row[7];
+            aPost.comment_status = row[8];
+            aPost.modified = row[9];
+            aPost.url = row[10];
+            aPost.comment_count = row[11];
+            
+        }
+        
+        m_mysqlPool->FreeRecord(pRes);
+    }
+    
+    return aPost;
+}

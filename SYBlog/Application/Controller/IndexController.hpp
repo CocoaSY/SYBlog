@@ -17,8 +17,6 @@
 class IndexController : public BaseController {
     
 public:
-    IndexController();
-    ~IndexController();
     
     void Rewrite(std::string link);
     void SetRoute(evhttp * http);
