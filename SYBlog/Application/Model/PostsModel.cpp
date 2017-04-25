@@ -7,16 +7,15 @@
 //
 
 #include "PostsModel.hpp"
-#include "SiteConfigModel.hpp"
-
+#include "SYSiteConfig.hpp"
 
 ARTICLE_MULTI_LIST PostsModel::GetArticleMultiList(uint32_t page){
     
     ARTICLE_MULTI_LIST list;
     
-    SiteConfigModel siteConfig;
+    SYSiteConfig * siteConfig = SYSiteConfig::GetInstance();
     
-    uint32 num = atoul(siteConfig.GetSiteConfig("SITE_MAX_VIEW").c_str());
+    uint32 num = atoul(siteConfig->GetSiteConfig("SITE_MAX_VIEW").c_str());
     uint32 start = (page == 0)? 0 : page * num;
     
     char szSQL[SIZE_1024] = {0};
@@ -50,9 +49,9 @@ ARTICLE_MULTI_LIST PostsModel::GetArticleMultiList(uint32_t cate,uint32_t page){
     
     ARTICLE_MULTI_LIST list;
     
-    SiteConfigModel siteConfig;
+    SYSiteConfig * siteConfig = SYSiteConfig::GetInstance();
     
-    uint32 num = atoul(siteConfig.GetSiteConfig("SITE_MAX_VIEW").c_str());
+    uint32 num = atoul(siteConfig->GetSiteConfig("SITE_MAX_VIEW").c_str());
     uint32 start = (page == 0)? 0 : page * num;
     
     char szSQL[SIZE_1024] = {0};

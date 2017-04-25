@@ -30,6 +30,7 @@ public:
     bool Init();
     bool LoadSiteConfig();
     
+    std::string GetSiteConfig(std::string key);
 };
 
 

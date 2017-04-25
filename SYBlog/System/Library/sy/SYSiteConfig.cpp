@@ -49,3 +49,7 @@ bool SYSiteConfig::LoadSiteConfig(){
     log_error("error \r\n");
     return false;
 }
+
+std::string SYSiteConfig::GetSiteConfig(std::string key){
+    return m_siteConfig[key];
+}
