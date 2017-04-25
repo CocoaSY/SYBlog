@@ -43,12 +43,6 @@ public:
     
     void Version();
     
-    static void HttpDebug(struct evhttp_request * req);
-    static void DebugHttpHeader(struct evhttp_request * req);
-    static const char * DebugHttpGetCommand(struct evhttp_request * req);
-    
-    static void HttpParseUrl(struct evhttp_request * req,struct evkeyvalq * evMyHeader);
-    static void GetHttpPostData(struct evhttp_request * req,struct evkeyvalq * evData);
     static void SendHttpResponse(struct evhttp_request * req,const std::string & data);
     
     bool StartHttpd();

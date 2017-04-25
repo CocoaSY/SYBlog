@@ -18,7 +18,6 @@ class BaseController : public SYController {
     
 public:
     virtual void SetRoute(evhttp * http) = 0;
-    virtual void Rewrite(std::string link) = 0;
     
     static std::string HeaderHtml();
     static std::string FooterHtml();

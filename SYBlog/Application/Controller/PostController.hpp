@@ -18,7 +18,6 @@ class PostController : public BaseController {
     
 public:
     
-    void Rewrite(std::string link);
     void SetRoute(evhttp * http);
     
     static void PostRequestCallback(struct evhttp_request *req, void *arg);

@@ -36,11 +36,6 @@ SYApp::~SYApp(){
 bool SYApp::Init(){
     
     m_startTime = uint32_t(time(NULL));
-    
-    //std::map<std::string, std::string> templateMap;
-    //templateMap[K_DEFAULT] = V_DEFAULT;
-    //SYTemplate::GetInstance()->Init(templateMap);
-    
     strncpy(m_szDir, SYIniConfig::GetInstance()->m_rootFullPath.c_str(), SYIniConfig::GetInstance()->m_rootFullPath.length());
     
     return true;
@@ -70,91 +65,6 @@ void SYApp::Version(){
              event_get_version(),
              (int)event_get_version_number(),
              sizeof(long) == 4 ? 32 : 64);
-}
-
-void SYApp::HttpDebug(struct evhttp_request * req){
-    if (LOGGER._level == LOG_LEVEL_DEBUG) {
-        SYApp::DebugHttpGetCommand(req);
-        SYApp::DebugHttpHeader(req);
-    }
-}
-
-void SYApp::DebugHttpHeader(struct evhttp_request * req){
-    
-    struct evkeyval * header;
-    struct evkeyvalq * headers;
-    
-    headers = evhttp_request_get_input_headers(req);
-    for (header = headers->tqh_first; header; header = header->next.tqe_next) {
-        log_debug("%s: %s\n", header->key, header->value);
-    }
-    
-}
-
-const char * SYApp::DebugHttpGetCommand(struct evhttp_request * req){
-    
-    const char * cmdType;
-    
-    switch (evhttp_request_get_command(req)) {
-        
-        case EVHTTP_REQ_GET:
-            cmdType = "GET";
-            break;
-        case EVHTTP_REQ_POST:
-            cmdType = "POST";
-            break;
-        case EVHTTP_REQ_HEAD:
-            cmdType = "HEAD";
-            break;
-        case EVHTTP_REQ_PUT:
-            cmdType = "PUT";
-            break;
-        case EVHTTP_REQ_DELETE:
-            cmdType = "DELETE";
-            break;
-        case EVHTTP_REQ_OPTIONS:
-            cmdType = "OPTIONS";
-            break;
-        case EVHTTP_REQ_TRACE:
-            cmdType = "TRACE";
-            break;
-        case EVHTTP_REQ_CONNECT:
-            cmdType = "CONNECT";
-            break;
-        case EVHTTP_REQ_PATCH:
-            cmdType = "PATCH";
-            break;
-        default:
-            cmdType = "unknown";
-            break;
-    }
-    
-    log_debug("Received a %s request for %s \n", cmdType, evhttp_request_get_uri(req));
-    return cmdType;
-}
-
-
-void SYApp::HttpParseUrl(struct evhttp_request * req,struct evkeyvalq * evMyHeader){
-    
-    const char * uri_query;
-    uri_query = evhttp_uri_get_query(evhttp_request_get_evhttp_uri(req));
-    evhttp_parse_query_str(uri_query, evMyHeader);
-    
-}
-
-void SYApp::GetHttpPostData(struct evhttp_request * req,struct evkeyvalq * evData){
-    
-    evbuffer * buf = evhttp_request_get_input_buffer(req);
-    int data_len = int(evbuffer_get_length(buf));
-    
-    char * pBuf = (char *)malloc(data_len + 1);
-    memset(pBuf, 0, data_len + 1);
-    
-    evbuffer_copyout(buf, pBuf, data_len + 1);
-    log_debug("%s\r\n", pBuf);
-    
-    evhttp_parse_query_str(pBuf, evData);
-    free(pBuf);
 }
 
 void SYApp::SendHttpResponse(struct evhttp_request * req,const std::string & data){

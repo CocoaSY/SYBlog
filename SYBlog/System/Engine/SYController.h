@@ -13,12 +13,13 @@
 #include <string>
 #include <event2/http.h>
 
+#include "SYRequest.hpp"
+
 class SYController {
     
 public:
     
     virtual void SetRoute(evhttp * http) = 0;
-    virtual void Rewrite(std::string link) = 0;
     
 };
 

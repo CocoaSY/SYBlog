@@ -13,10 +13,6 @@
 #include "ArticleSingleView.hpp"
 #include "SingleView.hpp"
 
-void PostController::Rewrite(std::string link){
-    
-}
-
 void PostController::SetRoute(evhttp * http){
     evhttp_set_cb(http, "/post", PostRequestCallback, NULL);
 }
@@ -27,12 +23,9 @@ void PostController::PostRequestCallback(struct evhttp_request *req, void *arg){
     std::string navHtml = HeaderHtml();
     
     // 加载文章内容
-    SYApp::HttpDebug(req);
-    
-    evkeyvalq GetData;
-    SYApp::HttpParseUrl(req, &GetData);
-    const char * postID = evhttp_find_header(&GetData, "id");
-    
+    SYRequest request(req);
+    request.HttpDebug();
+    const char * postID = request.Get("id");
     
     PostsModel postModel;
     POST aPost = postModel.GetArticle(atoul(postID));

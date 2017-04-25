@@ -15,10 +15,6 @@
 
 using namespace std;
 
-void CategoryController::Rewrite(std::string link){
-    
-}
-
 void CategoryController::SetRoute(evhttp *http){
     evhttp_set_cb(http, "/catalog", CategoryRequestCallback, NULL);
 }
@@ -29,13 +25,9 @@ void CategoryController::CategoryRequestCallback(struct evhttp_request *req, voi
     string navHTML = HeaderHtml();
     
     // 加载文章列表
-    SYApp::HttpDebug(req);
-    
-    struct evkeyvalq GetData;
-    SYApp::HttpParseUrl(req, &GetData);
-    
-    const char * cateID = evhttp_find_header(&GetData, "cate");
-    const char * pageID = evhttp_find_header(&GetData, "page");
+    SYRequest request(req);
+    const char * cateID = request.Get("cate");
+    const char * pageID = request.Get("page");
     
     uint32_t cid = atoi(cateID);
     uint32_t pid = atoi(pageID);

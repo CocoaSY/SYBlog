@@ -21,16 +21,13 @@
 
 using namespace std;
 
-void IndexController::Rewrite(std::string link){
-    
-}
-
 void IndexController::SetRoute(evhttp *http){
     evhttp_set_cb(http, "/", IndexRequestCallback, NULL);
 }
 
 void IndexController::IndexRequestCallback(struct evhttp_request *req, void *arg){
-    SYApp::HttpDebug(req);
+    SYRequest request(req);
+    request.HttpDebug();
     RequestPage(req, NULL);
 }
 

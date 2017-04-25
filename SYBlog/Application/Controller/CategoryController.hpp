@@ -18,7 +18,6 @@ class CategoryController : public BaseController {
 public:
     
     void SetRoute(evhttp * http);
-    void Rewrite(std::string link);
     
     static void CategoryRequestCallback(struct evhttp_request *req, void *arg);
     

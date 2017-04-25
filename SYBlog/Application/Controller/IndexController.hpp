@@ -18,7 +18,6 @@ class IndexController : public BaseController {
     
 public:
     
-    void Rewrite(std::string link);
     void SetRoute(evhttp * http);
     
     static void IndexRequestCallback(struct evhttp_request *req, void *arg);
