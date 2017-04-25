@@ -67,23 +67,6 @@ void SYApp::Version(){
              sizeof(long) == 4 ? 32 : 64);
 }
 
-void SYApp::SendHttpResponse(struct evhttp_request * req,const std::string & data){
-    
-    struct evbuffer * buf = evbuffer_new();
-    if (buf == NULL) {
-        log_error("failed to create response buffer\r\n");
-        return;
-    }
-    
-    int ret = evbuffer_add_printf(buf, "%s",data.c_str());
-    log_debug("evbuffer_add_printf ret= %d length=%d \r\n", ret, data.length());
-    
-    evhttp_add_header(evhttp_request_get_output_headers(req), "Content-Type", "text/html;charset=utf-8");
-    evhttp_send_reply(req, 200, "OK", buf);
-    evbuffer_free(buf);
-    
-}
-
 bool SYApp::StartHttpd(){
     
     return false;

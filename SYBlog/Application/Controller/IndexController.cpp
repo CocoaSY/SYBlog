@@ -56,6 +56,7 @@ void IndexController::RequestPage(struct evhttp_request *req, const char *PageId
     TEMPLATE HtmlTemplate = defaultView.GetDefaultHtml();
     
     // 发送页面到浏览器
-    SYApp::SendHttpResponse(req, HtmlTemplate.value);
+    SYResponse response(req);
+    response.SendHttpResponse(HtmlTemplate.value);
     
 }

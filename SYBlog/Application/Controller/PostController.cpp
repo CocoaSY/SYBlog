@@ -38,6 +38,7 @@ void PostController::PostRequestCallback(struct evhttp_request *req, void *arg){
     singleView.SetNavHtml(navHtml);
     singleView.SetArticleSingleHtml(articleSingleHtml);
     
-    SYApp::SendHttpResponse(req, singleView.GetSingleHtml().value);
-    
+    // 发送页面给浏览器
+    SYResponse response(req);
+    response.SendHttpResponse(singleView.GetSingleHtml().value);    
 }

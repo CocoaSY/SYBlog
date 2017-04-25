@@ -43,8 +43,6 @@ public:
     
     void Version();
     
-    static void SendHttpResponse(struct evhttp_request * req,const std::string & data);
-    
     bool StartHttpd();
     void SetRouteTable(evhttp * http);
     int BindSocket(const char * ip,uint16_t port);

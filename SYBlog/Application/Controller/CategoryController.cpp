@@ -51,6 +51,7 @@ void CategoryController::CategoryRequestCallback(struct evhttp_request *req, voi
     TEMPLATE html = catalogView.GetCatalogHtml();
     
     // 发送页面给浏览器
-    SYApp::SendHttpResponse(req, html.value);
+    SYResponse response(req);
+    response.SendHttpResponse(html.value);
     
 }

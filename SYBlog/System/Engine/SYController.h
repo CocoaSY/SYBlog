@@ -14,6 +14,7 @@
 #include <event2/http.h>
 
 #include "SYRequest.hpp"
+#include "SYResponse.hpp"
 
 class SYController {
     
