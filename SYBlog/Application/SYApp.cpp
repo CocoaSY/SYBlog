@@ -15,7 +15,7 @@
 
 #include "SYLog.hpp"
 #include "SYTemplate.hpp"
-#include "SYConfig.hpp"
+#include "SYIniConfig.hpp"
 #include "SYMysqlPool.hpp"
 
 #include "IndexController.hpp"
@@ -41,7 +41,7 @@ bool SYApp::Init(){
     //templateMap[K_DEFAULT] = V_DEFAULT;
     //SYTemplate::GetInstance()->Init(templateMap);
     
-    strncpy(m_szDir, SYConfig::GetInstance()->m_rootFullPath.c_str(), SYConfig::GetInstance()->m_rootFullPath.length());
+    strncpy(m_szDir, SYIniConfig::GetInstance()->m_rootFullPath.c_str(), SYIniConfig::GetInstance()->m_rootFullPath.length());
     
     return true;
 }
@@ -49,7 +49,7 @@ bool SYApp::Init(){
 void SYApp::StartMySqlPool(){
     
     SYMysqlPool *pMysqlPool = SYMysqlPool::GetInstance();
-    SYConfig *pConfig = SYConfig::GetInstance();
+    SYIniConfig *pConfig = SYIniConfig::GetInstance();
     pMysqlPool->Init(pConfig->m_mysqlConfig.ipaddr.c_str(),
                      pConfig->m_mysqlConfig.username.c_str(),
                      pConfig->m_mysqlConfig.password.c_str(),
@@ -194,7 +194,7 @@ void SYApp::SetRouteTable(evhttp * http){
         (*iter)->SetRoute(http);
     }
     
-    evhttp_set_timeout(http, SYConfig::GetInstance()->m_appConfig.HTTPTimeout);
+    evhttp_set_timeout(http, SYIniConfig::GetInstance()->m_appConfig.HTTPTimeout);
 }
 
 int SYApp::BindSocket(const char * ip,uint16_t port){

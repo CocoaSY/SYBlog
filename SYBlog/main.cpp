@@ -8,13 +8,13 @@
 
 #include <iostream>
 #include "SYApp.hpp"
-#include "SYConfig.hpp"
+#include "SYIniConfig.hpp"
 #include "SYLog.hpp"
 #include "SYMysqlPool.hpp"
 
 int main(int argc, const char * argv[]) {
     
-    SYConfig * config = SYConfig::GetInstance();
+    SYIniConfig * config = SYIniConfig::GetInstance();
     config->Init("Config.ini");
     
     LOGGER.setFileName(config->m_appConfig.LogFileName.c_str());    // 设置日志文件

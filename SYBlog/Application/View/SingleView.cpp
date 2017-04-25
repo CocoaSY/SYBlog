@@ -45,6 +45,7 @@ TEMPLATE SingleView::GetSingleHtml(){
         StringReplace(temp.value, m_replacingFrom.article_single, "");
     }
     
+    m_template->ReplaceSiteConfig(temp.value);
     
     return temp;
 }

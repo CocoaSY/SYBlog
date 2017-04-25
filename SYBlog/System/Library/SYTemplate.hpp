@@ -44,6 +44,8 @@ private:
     
     void LoadTemplatePage(std::map<std::string, std::string> & tempMap);
     void ReplaceTemplatePage(std::string & Html);
+    
+public:
     void ReplaceSiteConfig(std::string & Html);
     
 };

@@ -26,15 +26,11 @@ private:
     CatalogReplacing m_replacingFrom;
     CatalogReplacing m_replacingTo;
     
-    std::map<std::string, std::string> m_siteConfigMap;
-    
 public:
     CatalogView();
     
     void SetNavTemplate(std::string navHtml);
     void SetArticleMultiTemplate(std::string articleMultiHtml);
-    
-    void SetSiteConfig(std::map<std::string, std::string> siteConfigMap);
     
     TEMPLATE GetCatalogHtml();
 };

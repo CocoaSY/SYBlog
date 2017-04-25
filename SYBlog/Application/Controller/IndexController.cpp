@@ -18,7 +18,6 @@
 #include "PostsModel.hpp"
 #include "ArticleMultiView.hpp"
 #include "DefaultView.hpp"
-#include "SiteConfigModel.hpp"
 
 using namespace std;
 
@@ -55,10 +54,8 @@ void IndexController::RequestPage(struct evhttp_request *req, const char *PageId
     
     // 加载默认页面模板
     DefaultView defaultView;
-    SiteConfigModel siteConfig;
     defaultView.SetNavTemplate(navHtml);
     defaultView.SetArticleMultiTemplate(articleMultiHtml);
-    defaultView.SetSiteConfig(siteConfig.GetSiteConfig());
     TEMPLATE HtmlTemplate = defaultView.GetDefaultHtml();
     
     // 发送页面到浏览器

@@ -26,15 +26,11 @@ private:
     DefaultReplacing m_replacingFrom;
     DefaultReplacing m_replacingTo;
     
-    std::map<std::string, std::string> m_siteConfigMap;
-    
 public:
     DefaultView();
     
     void SetNavTemplate(std::string navTemplate);
     void SetArticleMultiTemplate(std::string articleMultiTemplate);
-    
-    void SetSiteConfig(std::map<std::string, std::string> siteConfigMap);
     
     TEMPLATE GetDefaultHtml();
     

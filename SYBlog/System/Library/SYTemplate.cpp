@@ -12,7 +12,8 @@
 
 #include "SYConstant.h"
 #include "SYLog.hpp"
-#include "SYConfig.hpp"
+#include "SYIniConfig.hpp"
+#include "SYSiteConfig.hpp"
 #include "SYUntil.hpp"
 
 using namespace std;
@@ -87,8 +88,9 @@ TEMPLATE & SYTemplate::GetFile(std::string fileDir,std::string fileName,TEMPLATE
 
 void SYTemplate::LoadTemplatePage(std::string key,std::string value){
     TEMPLATE aTemp;
-    string dir = SYConfig::GetInstance()->m_rootFullPath + "/themes/" + SYConfig::GetInstance()->m_appConfig.Theme + "/page/";
-    string adminDir = SYConfig::GetInstance()->m_rootFullPath + "/admin/";
+    SYIniConfig * config = SYIniConfig::GetInstance();
+    string dir = config->m_rootFullPath + "/themes/" + config->m_appConfig.Theme + "/page/";
+    string adminDir = config->m_rootFullPath + "/admin/";
     m_templateMap[key] = GetFile(dir, value, aTemp);
 }
 
@@ -128,7 +130,16 @@ void SYTemplate::ReplaceTemplatePage(std::string & Html){
 }
 
 void SYTemplate::ReplaceSiteConfig(std::string & Html){
-    // TODO ...
     
-    
+    SYSiteConfig * Config = SYSiteConfig::GetInstance();
+    SITECONFIG siteConfig = Config->m_siteConfig;
+    if (siteConfig.size() > 0) {
+        SITECONFIG::iterator iter;
+        for (iter = siteConfig.begin(); iter != siteConfig.end(); iter++) {
+            std::string key = "<#";
+            key += (*iter).first;
+            key += "#>";
+            StringReplace(Html, key, (*iter).second);
+        }
+    }
 }

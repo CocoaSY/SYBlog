@@ -24,10 +24,6 @@ void DefaultView::SetArticleMultiTemplate(std::string articleMultiTemplate){
     m_replacingTo.articleMulti = articleMultiTemplate;
 }
 
-void DefaultView::SetSiteConfig(std::map<std::string, std::string> siteConfigMap){
-    m_siteConfigMap = siteConfigMap;
-}
-
 TEMPLATE DefaultView::GetDefaultHtml(){
     TEMPLATE temp;
     m_template->BuiltHtmlByTemplateKey(K_DEFAULT, temp);
@@ -43,15 +39,7 @@ TEMPLATE DefaultView::GetDefaultHtml(){
         StringReplace(temp.value, m_replacingFrom.articleMulti, "");
     }
     
-    if (m_siteConfigMap.size() > 0) {
-        std::map<std::string, std::string>::iterator iter;
-        for (iter = m_siteConfigMap.begin(); iter != m_siteConfigMap.end(); iter++) {
-            std::string key = "<#";
-            key += (*iter).first;
-            key += "#>";
-            StringReplace(temp.value, key, (*iter).second);
-        }
-    }
+    m_template->ReplaceSiteConfig(temp.value);
     
     return temp;
 }

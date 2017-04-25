@@ -12,7 +12,6 @@
 #include "PostsModel.hpp"
 #include "ArticleMultiView.hpp"
 #include "CatalogView.hpp"
-#include "SiteConfigModel.hpp"
 
 using namespace std;
 
@@ -55,10 +54,8 @@ void CategoryController::CategoryRequestCallback(struct evhttp_request *req, voi
     
     // 加载分类页面
     CatalogView catalogView;
-    SiteConfigModel siteConfig;
     catalogView.SetNavTemplate(navHTML);
     catalogView.SetArticleMultiTemplate(articleMultiHtml);
-    catalogView.SetSiteConfig(siteConfig.GetSiteConfig());
     TEMPLATE html = catalogView.GetCatalogHtml();
     
     // 发送页面给浏览器

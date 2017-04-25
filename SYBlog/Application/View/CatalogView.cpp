@@ -25,10 +25,6 @@ void CatalogView::SetArticleMultiTemplate(std::string articleMultiHtml){
     m_replacingTo.articleMulti = articleMultiHtml;
 }
 
-void CatalogView::SetSiteConfig(std::map<std::string, std::string> siteConfigMap){
-    m_siteConfigMap = siteConfigMap;
-}
-
 TEMPLATE CatalogView::GetCatalogHtml(){
     
     TEMPLATE temp;
@@ -48,16 +44,7 @@ TEMPLATE CatalogView::GetCatalogHtml(){
         StringReplace(temp.value, m_replacingFrom.articleMulti, "");
     }
     
-    if (m_siteConfigMap.size() > 0) {
-        std::map<std::string, std::string>::iterator iter;
-        for (iter = m_siteConfigMap.begin(); iter != m_siteConfigMap.end(); iter++) {
-            std::string key = "<#";
-            key += (*iter).first;
-            key += "#>";
-            StringReplace(temp.value, key, (*iter).second);
-        }
-
-    }
+    m_template->ReplaceSiteConfig(temp.value);
     
     return temp;
 }
